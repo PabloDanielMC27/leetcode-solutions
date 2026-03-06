@@ -14,13 +14,15 @@ class Solution:
 
                 if nrow >= 0 and nrow < self.n and \
                   ncol >= 0 and ncol < self.m and \
-                    board[nrow][ncol] == word[idx] and self.visited[nrow][ncol] == 0:
+                    board[nrow][ncol] == word[idx]:
 
-                    self.visited[nrow][ncol] = 1
+                    aux = board[nrow][ncol]
+                    board[nrow][ncol] = "#"
+                   
                     if dfs(idx + 1, nrow, ncol):
                         return True
 
-                    self.visited[nrow][ncol] = 0
+                    board[nrow][ncol] = aux
                     
             return False
 
@@ -29,20 +31,15 @@ class Solution:
         self.n = len(board)
         self.m = len(board[0])
 
-        self.visited = [[0]*self.m for _ in range(self.n)]
 
         for row in range(self.n):
             for col in range(self.m):
                 if board[row][col] == word[0]:
-                    self.visited[row][col] = 1
+                    aux = board[row][col]
+                    board[row][col] = "#"
                     if dfs(1, row, col):
                         return True
                         
-                    self.visited[row][col] = 0
+                    board[row][col] = aux
 
         return False
-
-
-
-
-        
