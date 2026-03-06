@@ -1,0 +1,38 @@
+class Solution:
+    def totalNQueens(self, n: int) -> int:
+
+        def check_valid(i, ds):
+
+            n = len(ds)
+
+            for col in range(n):
+                if ds[col] == i:
+                    return False
+
+            for diagd in range(n):
+                if ds[diagd] + diagd == i + n:
+                    return False
+            
+            for diagu in range(n):
+                if (n + i) - 2* (n - diagu) == ds[diagu] + diagu :
+                    return False
+            
+            return True  
+
+        def backtrack(idx, ds, n):
+            if idx == n:                
+                self.ans += 1
+
+            for i in range(n):
+                if check_valid(i, ds):
+                    ds.append(i)
+                    backtrack(idx + 1, ds, n)
+                    ds.pop()
+
+
+        self.ans = 0
+        backtrack(0, [], n)
+
+        return self.ans
+
+        
