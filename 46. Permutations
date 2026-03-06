@@ -1,0 +1,23 @@
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+
+        self.ans = []
+
+        def backtrack(ds, nums, freq, n):
+            if len(ds) == n:
+                self.ans.append(list(ds))
+
+            for i in range(n):
+                if freq[i] == False:
+                    #pick
+                    freq[i] = True
+                    ds.append(nums[i])
+                    backtrack(ds, nums, freq, n)
+                    ds.pop()
+                    #not pick
+                    freq[i] = False
+        
+        n = len(nums)
+        freq = [False] * n
+        backtrack([], nums, freq, n)
+        return self.ans
