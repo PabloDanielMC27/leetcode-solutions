@@ -1,0 +1,29 @@
+class Solution:
+    def getMaximumGold(self, grid: List[List[int]]) -> int:
+
+        def dfs(row, col, total, visited):
+            self.ans = max(self.ans, total)
+
+            for delrow, delcol in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
+                nrow = row + delrow
+                ncol = col + delcol
+
+                if nrow >= 0 and nrow < len(grid) and \
+                  ncol >= 0 and ncol < len(grid[0]) and grid[nrow][ncol] != 0 and visited[nrow][ncol] == 0:
+                    total += grid[nrow][ncol]
+                    visited[nrow][ncol] = 1
+                    dfs(nrow, ncol, total, visited)
+                    total -= grid[nrow][ncol]
+                    visited[nrow][ncol] = 0
+
+        visited = [[0]*len(grid[0]) for _ in range(len(grid))]
+        self.ans = 0
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col] != 0:
+                    visited[row][col] = 1
+                    dfs(row, col, grid[row][col], visited)
+                    visited[row][col] = 0
+
+        return self.ans
+        
