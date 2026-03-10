@@ -20,18 +20,21 @@ class Solution:
         # dp[0][0] = 1
         # return backtrack(m - 1, n - 1, dp)
 
-        def backtrack(dp):
+        def tabulation(dp):
                        
            for i in range(len(dp)):
             for j in range(len(dp[0])):
-                if i > 0 and j > 0:
-                    dp[i][j] += dp[i][j - 1] + dp [i -1][j] 
+                if i == 0 and j == 0:
+                    dp[0][0] = 1
                 else:
-                    dp[i][j] = 1
+                    up = 0
+                    left = 0
+                    if i > 0: up = dp[i - 1][j]
+                    if j > 0: left = dp[i][j - 1]
+                    dp[i][j] = up + left
 
         dp = [[0] * n for _ in range(m)]
-        dp[0][0] = 1
-        backtrack(dp)
+        tabulation(dp)
         return dp[m - 1][n - 1]
         
 
