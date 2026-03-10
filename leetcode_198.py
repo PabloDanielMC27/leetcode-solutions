@@ -44,11 +44,14 @@ class Solution:
         #     dp = [0] * n
 
         #     dp[0] = nums[0]
-        #     dp[1] = max(nums[0], nums[1])
 
-        #     for i in range(2, n):
-        #         dp[i] = max(nums[i] + dp[i - 2], dp[i - 1])
-            
+        #     for i in range(1, n):
+        #         if i == 1: 
+        #             dp[1] = max(nums[0], nums[1])
+        #         else:
+        #             take = nums[i] + dp[i - 2]
+        #             not_take = dp[i - 1] # + 0
+        #             dp[i] = max(take, not_take)
         #     return dp[n - 1]
 
         # return tabulation()
@@ -59,14 +62,13 @@ class Solution:
             if n == 1:
                 return nums[0]
 
+            prev1 = nums[0]
             prev2 = 0
-            prev1 = 0
 
-            for num in nums:
-                curr = max(num + prev2, prev1)
+            for i in range(1, n):
+                curr = max(nums[i] + prev2, prev1)
                 prev2 = prev1
                 prev1 = curr
-            
-            return prev1
 
+            return prev1
         return tabulation()
