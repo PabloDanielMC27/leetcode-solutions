@@ -1,0 +1,11 @@
+# 492. Construct the Rectangle
+
+class Solution:
+    def constructRectangle(self, area: int) -> List[int]:
+
+        width = int(math.sqrt(area))
+
+        while area % width != 0:
+            width -= 1
+        
+        return [area // width, width]
